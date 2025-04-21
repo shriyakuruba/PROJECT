@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from montecarlo import Die, Game, Analyzer
+from montecarlo.DGA import Die, Game, Analyzer
 
 class TestDie(unittest.TestCase):
     """
