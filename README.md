@@ -213,23 +213,48 @@ Rolls all dice n_rolls times. Results are stored internally.
         """
 ```
 Displays the results of the game.
+
 **Parameters:**
     *  ```form```: Either ```"wide"``` (default) or ```"narrow"```.
         Returns: A DataFrame of results.
 
 ### Class: ```Analyzer```
+```python
+"""
+    An Analyzer takes the results of a Game and computes descriptive statistics.
+
+    Attributes:
+        game (Game): A Game object.
+        results
+```
 Analyzes the results of a played game.
 
 **Methods:**
 *  ```__init__(game: Game)```
-    Initializes the analyzer with a Game object.
+```python
+"""
+"""
+```
+Initializes the analyzer with a Game object.
 *  ```jackpot() -> int```
-    Counts how many rolls had all dice show the same face.
-    Returns: Integer count of jackpots.
+```python
+"""
+"""
+```
+Counts how many rolls had all dice show the same face.
+    *  Returns: Integer count of jackpots.
 *  ```combo() -> pd.DataFrame```
-    Returns a DataFrame of combinations of faces rolled, with counts.
+```python
+"""
+"""
+```
+Returns a DataFrame of combinations of faces rolled, with counts.
 *  ```face_counts_per_roll() -> pd.DataFrame```
-    Returns a DataFrame of how many times each face appeared in each roll.
+```python
+"""
+"""
+```
+Returns a DataFrame of how many times each face appeared in each roll.
 
 ## Running Tests
 To run all tests, run the following command from the root directory of the project:
