@@ -103,7 +103,8 @@ print(analyzer.face_counts_per_roll())
             ValueError: If the values in `faces` are not distinct.
         """
 ```
-    Initializes the die with given face values. All weights default to 1.0.
+Initializes the die with given face values. All weights default to 1.0.
+
 *  ```change_weight(face, new_weight: float)```
 ```python
     """Changes the weight of a single face on the die.
@@ -117,11 +118,12 @@ print(analyzer.face_counts_per_roll())
             TypeError: If the weight is not numeric or cannot be cast as numeric.
         """
 ```
-    Changes the weight of a specific face.
+Changes the weight of a specific face.
     **Parameters:**
     *  face: The face value to modify.
     *  new_weight (float): New weight to assign.
         Raises: ValueError if face not found or weight is invalid.
+    
 *  ```roll(n_rolls: int = 1) -> list```
 ```python
     """Rolls the die one or more times using the current weights.
@@ -145,17 +147,71 @@ print(analyzer.face_counts_per_roll())
             pd.DataFrame: A copy of the internal dataframe.
         """
 ```
-    Returns a DataFrame of faces and their corresponding weights.
+Returns a DataFrame of faces and their corresponding weights.
 
 ### Class: ```Game```
+```python
+"""
+    A Game consists of rolling one or more Die objects a specified number of times.
+    
+    The game is played by rolling all provided dice a specified number of times.
+    Dice in a game are considered similar if they have the same faces, although their weights may differ.
+    The Game class only stores the results of the most recent play.
+
+    Attributes:
+        dice (list): A list of Die objects.
+        _results (pd.DataFrame): Results of the most recent play.
+    """
+```
 Represents a game with one or more dice.
 **Methods:**
 *  ```__init__(dice: list)```
-    Initializes the game with a list of Die objects.
+```python
+"""
+        Initialize the Game with a list of Die objects.
+
+        Args:
+            dice_list (list): List of Die objects.
+        
+        Raises:
+            TypeError: If any item in the list is not an instance of the Die class.
+            ValueError: If not all dice have the same faces.
+        """
+```
+Initializes the game with a list of Die objects.
 *  ```play(n_rolls: int)```
-    Rolls all dice n_rolls times. Results are stored internally.
+```python
+"""
+        Roll all dice for a specified number of times and store the result.
+
+        Args:
+            n_rolls (int): Number of times to roll the dice.
+            
+        Raises:
+            ValueError: If `num_rolls` is not a positive integer.
+        """
+```
+Rolls all dice n_rolls times. Results are stored internally.
+
 *  ```show(form: str = 'wide') -> pd.DataFrame```
-    Displays the results of the game.
+```python
+"""
+        Show the results of the most recent play.
+
+        Args:
+            form (str): Format of the returned DataFrame. Either 'wide' or 'narrow'.
+                                  'wide' returns the DataFrame as-is (default).
+                                  'narrow' returns a long-format version with three columns:
+                                  Roll Number, Die Number, and Face.
+
+        Returns:
+            pd.DataFrame: A copy of the play results in the specified format.
+
+        Raises:
+            ValueError: If the `form` argument is not 'wide' or 'narrow'.
+        """
+```
+Displays the results of the game.
     **Parameters:**
     *  ```form```: Either ```"wide"``` (default) or ```"narrow"```.
         Returns: A DataFrame of results.
