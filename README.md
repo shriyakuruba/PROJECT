@@ -123,11 +123,10 @@ Analyzes the results of a played game.
     Returns a DataFrame of how many times each face appeared in each roll.
 
 ## Running Tests
-To run the unit tests:
+To run all tests, run the following command from the root directory of the project:
 ```python
-pytest tests/test_montecarlo.py
+python -m unittest tests.test_montecarlo
 ```
-Make sure that pytest is installed in your environment.
 
 ### Author
 Shriya Kuruba
