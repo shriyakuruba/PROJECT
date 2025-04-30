@@ -79,20 +79,72 @@ print(analyzer.face_counts_per_roll())
 
 ## API Description
 ### Class: ```Die```
-Represents a single die with customizable weights.
+```python
+"""A class representing a single die with N sides and W weights.
 
+    Each face has a unique symbol, and a weight associated with it that determines the likelihood of that face being rolled. By default, all weights are 1.0, making the die fair, but can be changed after the object is created. The die can be rolled to select a face based on weights.
+
+    Attributes:
+        faces (np.ndarray): A NumPy array of unique face symbols.
+        weights (np.ndarray): A NumPy array of weights, defaulting to 1.0 for each face.
+        _df (pd.DataFrame): A private DataFrame storing faces and weights with faces as the index.
+"""
+```
 **Methods:**
 *  ```__init__(faces: list)```
+```python
+    """Initializes the Die object with the provided faces.
+
+        Args:
+            faces (np.ndarray): A NumPy array of unique face symbols (must be strings or numbers).
+
+        Raises:
+            TypeError: If `faces` is not a NumPy array.
+            ValueError: If the values in `faces` are not distinct.
+        """
+```
     Initializes the die with given face values. All weights default to 1.0.
 *  ```change_weight(face, new_weight: float)```
+```python
+    """Changes the weight of a single face on the die.
+
+        Args:
+            face (str or int): The face value whose weight should be changed.
+            weight (float): The new weight to assign to the face chosen.
+
+        Raises:
+            IndexError: If the face is not found in the die.
+            TypeError: If the weight is not numeric or cannot be cast as numeric.
+        """
+```
     Changes the weight of a specific face.
     **Parameters:**
     *  face: The face value to modify.
     *  new_weight (float): New weight to assign.
         Raises: ValueError if face not found or weight is invalid.
 *  ```roll(n_rolls: int = 1) -> list```
+```python
+    """Rolls the die one or more times using the current weights.
+
+        Args:
+            num_rolls (int): Number of rolls to perform. Defaults to 1.
+
+        Returns:
+            list: A list of outcomes from the rolls.
+        
+        Raises:
+            ValueError: If `num_rolls` is not a positive integer.
+        """
+```
     Rolls the die n_rolls times and returns the outcomes.
 *  ```show() -> pd.DataFrame```
+```python
+    """Show the current faces and weights of the die.
+
+        Returns:
+            pd.DataFrame: A copy of the internal dataframe.
+        """
+```
     Returns a DataFrame of faces and their corresponding weights.
 
 ### Class: ```Game```

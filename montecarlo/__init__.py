@@ -29,9 +29,9 @@ Methods:
 - permutation(): Count ordered permutations of rolls.
 """
 
-from .DGA import Die, Game, Analyzer
+from .montecarlo import Die, Game, Analyzer
 
-from .DGA import Die, Game, Analyzer
+from .montecarlo import Die, Game, Analyzer
 
 help(Die)        # Shows Die class docstring
 help(Game)       # Shows Game class docstring
