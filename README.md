@@ -119,7 +119,8 @@ Initializes the die with given face values. All weights default to 1.0.
         """
 ```
 Changes the weight of a specific face.
-    **Parameters:**
+    
+**Parameters:**
     *  face: The face value to modify.
     *  new_weight (float): New weight to assign.
         Raises: ValueError if face not found or weight is invalid.
@@ -138,7 +139,7 @@ Changes the weight of a specific face.
             ValueError: If `num_rolls` is not a positive integer.
         """
 ```
-    Rolls the die n_rolls times and returns the outcomes.
+Rolls the die n_rolls times and returns the outcomes.
 *  ```show() -> pd.DataFrame```
 ```python
     """Show the current faces and weights of the die.
@@ -212,7 +213,7 @@ Rolls all dice n_rolls times. Results are stored internally.
         """
 ```
 Displays the results of the game.
-    **Parameters:**
+**Parameters:**
     *  ```form```: Either ```"wide"``` (default) or ```"narrow"```.
         Returns: A DataFrame of results.
 
