@@ -124,7 +124,7 @@ Changes the weight of a specific face.
 - face: The face value to modify.
 - new_weight (float): New weight to assign.
     Raises: ValueError if face not found or weight is invalid.
-    
+
 3.  ```roll(n_rolls: int = 1) -> list```
 ```python
     """Rolls the die one or more times using the current weights.
@@ -140,6 +140,7 @@ Changes the weight of a specific face.
         """
 ```
 Rolls the die n_rolls times and returns the outcomes.
+
 4.  ```show() -> pd.DataFrame```
 ```python
     """Show the current faces and weights of the die.
@@ -165,6 +166,7 @@ Returns a DataFrame of faces and their corresponding weights.
     """
 ```
 Represents a game with one or more dice.
+
 **Methods:**
 1.  ```__init__(dice: list)```
 ```python
@@ -180,6 +182,7 @@ Represents a game with one or more dice.
         """
 ```
 Initializes the game with a list of Die objects.
+
 2.  ```play(n_rolls: int)```
 ```python
 """
@@ -236,13 +239,15 @@ Analyzes the results of a played game.
 """
 ```
 Initializes the analyzer with a Game object.
+
 2.  ```jackpot() -> int```
 ```python
 """
 """
 ```
 Counts how many rolls had all dice show the same face.
-    *  Returns: Integer count of jackpots.
+*  Returns: Integer count of jackpots.
+
 3.  ```combo() -> pd.DataFrame```
 ```python
 """
