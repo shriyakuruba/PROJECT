@@ -7,52 +7,72 @@
 ---
 
 ## Synopsis
-This project simulates a game involving dice with customizable weights. It consists of three main components: `Die`, `Game`, and `Analyzer`.
+This project is a Python package that allows users to simulate and analyze outcomes of rolling dice. The package has three main classes:
+1. ```Die```: Represents a single die that can have N faces and W weights.
+2. ```Game```: Manages one or more Die objects and playing a sequence of rolls.
+3. ```Analyzer```: Analyzes the results of a game to provide statistics such as jackpots, combinations, and face counts.
+
+## Package Structure
+```python
+montecarlo/
+│
+├── __init__.py         # Initializes the package
+├── montecarlo.py       # Contains the classes: Die, Game, and Analyzer
+│
+tests/
+├── test_montecarlo.py  # Contains unit tests for all three classes
+│
+README.md               # Project documentation
+LICENSE                 # Licensing information
+setup.py                # Setup script for installing the package
+```
+## Installation Instructions
+You can clone the repository and install the package locally:
+
+```python
+git clone https://github.com/shriyakuruba/PROJECT.git
+cd PROJECT
+```
+**OR**
+
+You can install it as a package:
+
+```python
+pip install .
+```
+
+## How to Use
+### Example Usage
+```python
+from montecarlo.montecarlo import Die, Game, Analyzer
 
 ### Create + Modify a Die
-```python
-from montecarlo import Die
-
 # Create a die with 6 sides
 die = Die([1, 2, 3, 4, 5, 6])
-
 # Change weight of face '1' to 3.0
 die.change_weight(1, 3.0)
-
 # View current die configuration
 print(die.show())
-```
+
 
 ### Play the Game
-```python
-from montecarlo import Game
-
 # Create a game with 3 dice
 game = Game([die, die, die])
-
 # Play 10 rolls
 game.play(10)
-
 # Show results in wide form
 print(game.show('wide'))
-
 # Show results in narrow form
 print(game.show('narrow'))
-```
+
 
 ### Analyze the Game
-```python
-from montecarlo import Analyzer
-
 # Initialize analyzer with the played game
 analyzer = Analyzer(game)
-
 # Count how many times all dice had the same face (jackpot)
 print(analyzer.jackpot())
-
 # Get combination counts
 print(analyzer.combo())
-
 # Get face counts per roll
 print(analyzer.face_counts_per_roll())
 ```
@@ -101,3 +121,22 @@ Analyzes the results of a played game.
     Returns a DataFrame of combinations of faces rolled, with counts.
 *  ```face_counts_per_roll() -> pd.DataFrame```
     Returns a DataFrame of how many times each face appeared in each roll.
+
+## Running Tests
+To run the unit tests:
+```python
+pytest tests/test_montecarlo.py
+```
+Make sure that pytest is installed in your environment.
+
+### To install required packages:
+```python
+pip install -r requirements.txt
+```
+
+(Note: Create a requirements.txt file if not already done. At a minimum, it should include pandas, numpy, pytest.)
+
+### Author
+Shriya Kuruba
+GitHub: shriyakuruba
+Email: ewu9af@virginia.edu
