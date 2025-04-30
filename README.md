@@ -91,7 +91,7 @@ print(analyzer.face_counts_per_roll())
 """
 ```
 **Methods:**
-*  ```__init__(faces: list)```
+1.  ```__init__(faces: list)```
 ```python
     """Initializes the Die object with the provided faces.
 
@@ -105,7 +105,7 @@ print(analyzer.face_counts_per_roll())
 ```
 Initializes the die with given face values. All weights default to 1.0.
 
-*  ```change_weight(face, new_weight: float)```
+2.  ```change_weight(face, new_weight: float)```
 ```python
     """Changes the weight of a single face on the die.
 
@@ -125,7 +125,7 @@ Changes the weight of a specific face.
 - new_weight (float): New weight to assign.
     Raises: ValueError if face not found or weight is invalid.
     
-*  ```roll(n_rolls: int = 1) -> list```
+3.  ```roll(n_rolls: int = 1) -> list```
 ```python
     """Rolls the die one or more times using the current weights.
 
@@ -140,7 +140,7 @@ Changes the weight of a specific face.
         """
 ```
 Rolls the die n_rolls times and returns the outcomes.
-*  ```show() -> pd.DataFrame```
+4.  ```show() -> pd.DataFrame```
 ```python
     """Show the current faces and weights of the die.
 
@@ -166,7 +166,7 @@ Returns a DataFrame of faces and their corresponding weights.
 ```
 Represents a game with one or more dice.
 **Methods:**
-*  ```__init__(dice: list)```
+1.  ```__init__(dice: list)```
 ```python
 """
         Initialize the Game with a list of Die objects.
@@ -180,7 +180,7 @@ Represents a game with one or more dice.
         """
 ```
 Initializes the game with a list of Die objects.
-*  ```play(n_rolls: int)```
+2.  ```play(n_rolls: int)```
 ```python
 """
         Roll all dice for a specified number of times and store the result.
@@ -194,7 +194,7 @@ Initializes the game with a list of Die objects.
 ```
 Rolls all dice n_rolls times. Results are stored internally.
 
-*  ```show(form: str = 'wide') -> pd.DataFrame```
+3.  ```show(form: str = 'wide') -> pd.DataFrame```
 ```python
 """
         Show the results of the most recent play.
@@ -230,26 +230,26 @@ Displays the results of the game.
 Analyzes the results of a played game.
 
 **Methods:**
-*  ```__init__(game: Game)```
+1.  ```__init__(game: Game)```
 ```python
 """
 """
 ```
 Initializes the analyzer with a Game object.
-*  ```jackpot() -> int```
+2.  ```jackpot() -> int```
 ```python
 """
 """
 ```
 Counts how many rolls had all dice show the same face.
     *  Returns: Integer count of jackpots.
-*  ```combo() -> pd.DataFrame```
+3.  ```combo() -> pd.DataFrame```
 ```python
 """
 """
 ```
 Returns a DataFrame of combinations of faces rolled, with counts.
-*  ```face_counts_per_roll() -> pd.DataFrame```
+4.  ```face_counts_per_roll() -> pd.DataFrame```
 ```python
 """
 """
