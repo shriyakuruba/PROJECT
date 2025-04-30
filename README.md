@@ -129,13 +129,6 @@ pytest tests/test_montecarlo.py
 ```
 Make sure that pytest is installed in your environment.
 
-### To install required packages:
-```python
-pip install -r requirements.txt
-```
-
-(Note: Create a requirements.txt file if not already done. At a minimum, it should include pandas, numpy, pytest.)
-
 ### Author
 Shriya Kuruba
 GitHub: shriyakuruba
