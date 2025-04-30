@@ -121,9 +121,9 @@ Initializes the die with given face values. All weights default to 1.0.
 Changes the weight of a specific face.
     
 **Parameters:**
-    - face: The face value to modify.
-    - new_weight (float): New weight to assign.
-        Raises: ValueError if face not found or weight is invalid.
+- face: The face value to modify.
+- new_weight (float): New weight to assign.
+    Raises: ValueError if face not found or weight is invalid.
     
 *  ```roll(n_rolls: int = 1) -> list```
 ```python
@@ -215,8 +215,8 @@ Rolls all dice n_rolls times. Results are stored internally.
 Displays the results of the game.
 
 **Parameters:**
-    *  ```form```: Either ```"wide"``` (default) or ```"narrow"```.
-        Returns: A DataFrame of results.
+-  ```form```: Either ```"wide"``` (default) or ```"narrow"```.
+    Returns: A DataFrame of results.
 
 ### Class: ```Analyzer```
 ```python
