@@ -48,7 +48,8 @@ pip install .
 ```python
 from montecarlo.montecarlo import Die, Game, Analyzer
 
-### Create + Modify a Die
+# Create Die
+
 # Create a die with 6 sides
 die = Die([1, 2, 3, 4, 5, 6])
 # Change weight of face '1' to 3.0
@@ -57,7 +58,8 @@ die.change_weight(1, 3.0)
 print(die.show())
 
 
-### Play the Game
+# Play
+
 # Create a game with 3 dice
 game = Game([die, die, die])
 # Play 10 rolls
@@ -68,7 +70,8 @@ print(game.show('wide'))
 print(game.show('narrow'))
 
 
-### Analyze the Game
+# Analyze
+
 # Initialize analyzer with the played game
 analyzer = Analyzer(game)
 # Count how many times all dice had the same face (jackpot)
