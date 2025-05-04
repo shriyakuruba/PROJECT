@@ -138,7 +138,7 @@ class Game:
             roll_data[i] = die.roll(num_rolls)
 
         self._results = pd.DataFrame(roll_data)
-        self._results.index.name = "Roll Number"
+        self._results.index.name = "roll number"
 
     def show(self, form: str = "wide"):
         """
@@ -148,7 +148,7 @@ class Game:
             form (str): Format of the returned DataFrame. Either 'wide' or 'narrow'.
                                   'wide' returns the DataFrame as-is (default).
                                   'narrow' returns a long-format version with three columns:
-                                  Roll Number, Die Number, and Face.
+                                  roll number, die number, and face.
 
         Returns:
             pd.DataFrame: A copy of the play results in the specified format.
@@ -162,9 +162,9 @@ class Game:
         if form == "wide":
             return self._results.copy()
         elif form == "narrow":
-            return self._results.reset_index().melt(id_vars=["Roll Number"],
-                                                         var_name="Die Number",
-                                                         value_name="Face")
+            return self._results.reset_index().melt(id_vars=["roll number"],
+                                                         var_name="die number",
+                                                         value_name="face")
         else:
             raise ValueError("form must be either 'wide' or 'narrow'")
             
@@ -237,6 +237,6 @@ class Analyzer:
             pd.DataFrame: DataFrame indexed by permutation with 'count' column.
         """
         perms = self.results.apply(lambda row: tuple(row), axis=1).value_counts().sort_index()
-        perm_df = perm.to_frame(name='count')
+        perm_df = perms.to_frame(name='count')
         perm_df.index = pd.MultiIndex.from_tuples(perm_df.index)
         return perm_df

@@ -127,7 +127,7 @@ class TestAnalyzer(unittest.TestCase):
         Test that jackpot returns an integer (count of matching rolls).
         """
         result = self.analyzer.jackpot()
-        self.assertIsInstance(result, int)
+        self.assertTrue(isinstance(result, (int, np.integer)))
 
     def test_face_counts_per_roll_structure(self):
         """

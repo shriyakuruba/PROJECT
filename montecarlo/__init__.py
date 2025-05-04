@@ -30,7 +30,3 @@ Methods:
 """
 
 from .montecarlo import Die, Game, Analyzer
-
-help(Die)        # Shows Die class docstring
-help(Game)       # Shows Game class docstring
-help(Analyzer)   # Shows Analyzer class docstring
