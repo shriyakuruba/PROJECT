@@ -19,12 +19,14 @@ montecarlo/
 ├── __init__.py         # Initializes the package
 ├── montecarlo.py       # Contains the classes: Die, Game, and Analyzer
 │
-tests/
-├── test_montecarlo.py  # Contains unit tests for all three classes
+test_montecarlo.py  # Contains unit tests for all three classes
 │
-README.md               # Project documentation
-LICENSE                 # Licensing information
-setup.py                # Setup script for installing the package
+README.md                               # Project documentation
+LICENSE                                 # Licensing information
+setup.py                                # Setup script for installing the package
+DSDS51200_FinalProjectTemplate.ipynb    # Template to test package
+english_letters.txt                     # Text file to test package in Template notebook
+scrabble_words.txt                      # Text file to test package in Template notebook
 ```
 ## Installation Instructions
 You can clone the repository and install the package locally:
