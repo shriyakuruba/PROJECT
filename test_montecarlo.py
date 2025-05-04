@@ -11,6 +11,7 @@ class TestDie(unittest.TestCase):
     Tests:
         - Initialization and internal structure
         - Changing weight of a face
+        - Handling invalid inputs
         - Rolling the die
         - Showing the faces and weights
     """
@@ -20,7 +21,7 @@ class TestDie(unittest.TestCase):
         self.faces = np.array([1, 2, 3])
         self.die = Die(self.faces)
 
-    def test_init_structure(self):
+    def test_init_(self):
         """
         Test that the Die object creates an internal DataFrame with proper structure.
         """
@@ -33,23 +34,30 @@ class TestDie(unittest.TestCase):
         """
         self.die.change_weight(2, 5.0)
         self.assertEqual(self.die._df.loc[2, 'weight'], 5.0)
+        
+    def test_change_weight_invalid_face(self):
+        """
+        Test that change_weight raises IndexError for a non-existent face.
+        """
+        with self.assertRaises(IndexError):
+            self.die.change_weight('invalid', 2.0)
 
-    def test_roll_output_type(self):
+    def test_roll(self):
         """
         Test that roll returns a NumPy array of the correct length.
         """
         result = self.die.roll(5)
-        self.assertIsInstance(result, np.ndarray)
+        self.assertIsInstance(result, list)
         self.assertEqual(len(result), 5)
 
-    def test_show_returns_dataframe(self):
+    def test_show_die(self):
         """
         Test that show returns a DataFrame with 'face' and 'weight' columns.
         """
-        df = self.die.show()
+        df = self.die.show_die()
         self.assertIsInstance(df, pd.DataFrame)
-        self.assertIn('face', df.columns)
-        self.assertIn('weight', df.columns)
+        self.assertListEqual(sorted(df.columns.tolist()), ['weight'])
+        self.assertTrue(df.index.is_unique)
 
 
 class TestGame(unittest.TestCase):
@@ -68,7 +76,7 @@ class TestGame(unittest.TestCase):
         die2 = Die(faces)
         self.game = Game([die1, die2])
 
-    def test_play_result_shape(self):
+    def test_play(self):
         """
         Test that the play method creates a result DataFrame with correct shape.
         """
@@ -92,7 +100,7 @@ class TestGame(unittest.TestCase):
         self.game.play(3)
         result = self.game.show('narrow')
         self.assertIsInstance(result, pd.DataFrame)
-        self.assertEqual(set(result.columns), {'roll_num', 'die', 'face'})
+        self.assertEqual(set(result.columns), {'roll number', 'die number', 'face'})
 
 
 class TestAnalyzer(unittest.TestCase):

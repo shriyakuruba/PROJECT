@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 
-import numpy as np
-import pandas as pd
-
 class Die:
     """A class representing a single die with N sides and W weights.
 
@@ -30,6 +27,7 @@ class Die:
         if len(np.unique(faces)) != len(faces):
             raise ValueError("Faces must be unique.")
             
+        self.faces  = faces    
         self._df = pd.DataFrame({'face': faces, 'weight': [1.0] * len(faces)})
         self._df.set_index('face', inplace=True)
 
@@ -38,7 +36,7 @@ class Die:
 
         Args:
             face (str or int): The face value whose weight should be changed.
-            weight (float): The new weight to assign to the face chosen.
+            new_weight (float): The new weight to assign to the face chosen.
 
         Raises:
             IndexError: If the face is not found in the die.
@@ -119,7 +117,7 @@ class Game:
                 raise ValueError("All dice must have the same set of faces.")
                 
         self.dice = dice_list
-        self._play_results = None
+        self._results = None
 
     def play(self, num_rolls: int):
         """
@@ -139,8 +137,8 @@ class Game:
         for i, die in enumerate(self.dice):
             roll_data[i] = die.roll(num_rolls)
 
-        self._play_results = pd.DataFrame(roll_data)
-        self._play_results.index.name = "Roll Number"
+        self._results = pd.DataFrame(roll_data)
+        self._results.index.name = "Roll Number"
 
     def show(self, form: str = "wide"):
         """
@@ -158,13 +156,13 @@ class Game:
         Raises:
             ValueError: If the `form` argument is not 'wide' or 'narrow'.
         """
-        if self._play_results is None:
+        if self._results is None:
             return pd.DataFrame()  # No play has occurred yet
 
         if form == "wide":
-            return self._play_results.copy()
+            return self._results.copy()
         elif form == "narrow":
-            return self._play_results.reset_index().melt(id_vars=["Roll Number"],
+            return self._results.reset_index().melt(id_vars=["Roll Number"],
                                                          var_name="Die Number",
                                                          value_name="Face")
         else:
@@ -173,74 +171,72 @@ class Game:
             
 class Analyzer:
     """
-    An Analyzer takes the results of a Game and computes descriptive statistics.
+    An Analyzer takes the results of a single Game and computes descriptive statistics
 
     Attributes:
-        game (Game): A Game object.
-        results (pd.DataFrame): Results from the game's last play.
+        game (Game): A Game object containing the results of the dice rolls
+        results (pd.DataFrame): The results of the game's last play (each row is a roll)
     """
     def __init__(self, game):
         """
         Initialize the Analyzer with a Game object.
 
         Parameters:
-            game (Game): The Game object to analyze.
+            game (Game): An instance of the Game object
 
         Raises:
-            ValueError: If input is not a Game object.
+            ValueError: If input is not an instance of Game
         """
         if not isinstance(game, Game):
-            raise ValueError("Input must be a Game object.")
+            raise ValueError("The input must be a Game object.")
         
         self.game = game
         self.results = game.show('wide')
-        self.jackpot_results = None
-        self.face_counts = None
-
+        
     def jackpot(self):
         """
-        Count how many times all dice in a roll showed the same face.
+        Count how many times all dice in a roll showed the same face
 
         Returns:
-            int: Number of jackpot rolls.
+            int: # of jackpots
         """
-        jackpots = self.results.nunique(axis=1) == 1
-        self.jackpot_results = jackpots
+        jackpots = self.results.nunique(axis = 1) == 1
         return jackpots.sum()
 
     def face_counts_per_roll(self):
         """
-        Count how many times each face appeared in each roll.
+        Counts how many times each face appeared in each roll
 
         Returns:
-            pd.DataFrame: DataFrame with roll number as index and face counts as columns.
+            pd.DataFrame: A DataFrame with roll number as index, face values as columns, and the count of each face per roll as values
         """
-        counts = self.results.apply(pd.Series.value_counts, axis=1).fillna(0).astype(int)
-        self.face_counts = counts
-        return self.face_counts
+        face_counts = self.results.apply(pd.Series.value_counts, axis = 1).fillna(0).astype(int)
+        face_counts.index.name = "roll number"
+        return face_counts
 
     def combo(self):
         """
-        Compute distinct combinations of faces rolled, regardless of order.
+        Counts the distinct combinations of faces rolled, along with their counts
+        
+        Combos are unordered ([1,2,3] is the same as [3,2,1]) and can include repeated faces
 
         Returns:
-            pd.DataFrame: DataFrame indexed by combo with count column.
+            pd.DataFrame: DataFrame indexed by combo with 'count' column.
         """
-        combos = self.results.apply(lambda row: tuple(sorted(row)), axis=1)
-        combo_counts = combos.value_counts().to_frame('count')
-        combo_counts.index.name = 'combo'
-        self.combo_df = combo_counts
-        return self.combo_df
+        sorted_results = self.results.apply(lambda row: tuple(sorted(row)), axis=1)
+        combos = sorted_results.value_counts().sort_index()
+        combo_df = combos.to_frame(name='count')
+        combo_df.index = pd.MultiIndex.from_tuples(combo_df.index)
+        return combo_df
 
     def permutation(self):
         """
-        Compute distinct permutations of faces rolled (order matters).
+        Counts the distinct permutations of faces rolled (order matters), along with count
 
         Returns:
-            pd.DataFrame: DataFrame indexed by permutation with count column.
+            pd.DataFrame: DataFrame indexed by permutation with 'count' column.
         """
-        perms = self.results.apply(lambda row: tuple(row), axis=1)
-        perm_counts = perms.value_counts().to_frame('count')
-        perm_counts.index.name = 'permutation'
-        self.permutation_df = perm_counts
-        return self.permutation_df
+        perms = self.results.apply(lambda row: tuple(row), axis=1).value_counts().sort_index()
+        perm_df = perm.to_frame(name='count')
+        perm_df.index = pd.MultiIndex.from_tuples(perm_df.index)
+        return perm_df

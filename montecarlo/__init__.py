@@ -7,8 +7,8 @@ A die that can be rolled with weighted probabilities on each face.
 Methods:
 - __init__(faces): Initialize with unique faces (NumPy array).
 - change_weight(face, new_weight): Change the weight for a given face.
-- roll(n_rolls=1): Roll the die n times.
-- show(): Show current faces and weights.
+- roll(n_rolls = 1): Roll the die n times.
+- show_die(): Show current faces and weights.
 
 === Game ===
 A Game object for rolling multiple dice and saving the results.
@@ -28,8 +28,6 @@ Methods:
 - combo(): Count combinations of rolled faces.
 - permutation(): Count ordered permutations of rolls.
 """
-
-from .montecarlo import Die, Game, Analyzer
 
 from .montecarlo import Die, Game, Analyzer
 
