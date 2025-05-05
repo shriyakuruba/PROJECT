@@ -85,43 +85,44 @@ print(analyzer.face_counts_per_roll())
 ## API Description
 ### Class: ```Die```
 ```python
-"""A class representing a single die with N sides and W weights.
+"""
+A class representing a single die with N sides and W weights.
 
-    Each face has a unique symbol, and a weight associated with it that determines the likelihood of that face being rolled. By default, all weights are 1.0, making the die fair, but can be changed after the object is created. The die can be rolled to select a face based on weights.
+Each face has a unique symbol, and a weight associated with it that determines the likelihood of that face being rolled. By default, all weights are 1.0, making the die fair, but can be changed after the object is created. The die can be rolled to select a face based on weights.
 
-    Attributes:
-        faces (np.ndarray): A NumPy array of unique face symbols.
-        weights (np.ndarray): A NumPy array of weights, defaulting to 1.0 for each face.
-        _df (pd.DataFrame): A private DataFrame storing faces and weights with faces as the index.
+Attributes:
+    faces (np.ndarray): A NumPy array of unique face symbols.
+    weights (np.ndarray): A NumPy array of weights, defaulting to 1.0 for each face.
+    _df (pd.DataFrame): A private DataFrame storing faces and weights with faces as the index.
 """
 ```
 **Methods:**
 1.  ```__init__(faces: list)```
 ```python
-    """Initializes the Die object with the provided faces.
+"""Initializes the Die object with the provided faces.
 
-        Args:
-            faces (np.ndarray): A NumPy array of unique face symbols (must be strings or numbers).
+Args:
+    faces (np.ndarray): A NumPy array of unique face symbols (must be strings or numbers).
 
-        Raises:
-            TypeError: If `faces` is not a NumPy array.
-            ValueError: If the values in `faces` are not distinct.
-        """
+Raises:
+    TypeError: If `faces` is not a NumPy array.
+    ValueError: If the values in `faces` are not distinct.
+"""
 ```
 Initializes the die with given face values. All weights default to 1.0.
 
 2.  ```change_weight(face, new_weight: float)```
 ```python
-    """Changes the weight of a single face on the die.
+"""Changes the weight of a single face on the die.
 
-        Args:
-            face (str or int): The face value whose weight should be changed.
-            weight (float): The new weight to assign to the face chosen.
+Args:
+    face (str or int): The face value whose weight should be changed.
+    weight (float): The new weight to assign to the face chosen.
 
-        Raises:
-            IndexError: If the face is not found in the die.
-            TypeError: If the weight is not numeric or cannot be cast as numeric.
-        """
+Raises:
+    IndexError: If the face is not found in the die.
+    TypeError: If the weight is not numeric or cannot be cast as numeric.
+"""
 ```
 Changes the weight of a specific face.
     
@@ -132,43 +133,43 @@ Changes the weight of a specific face.
 
 3.  ```roll(n_rolls: int = 1) -> list```
 ```python
-    """Rolls the die one or more times using the current weights.
+"""Rolls the die one or more times using the current weights.
 
-        Args:
-            num_rolls (int): Number of rolls to perform. Defaults to 1.
+Args:
+    num_rolls (int): Number of rolls to perform. Defaults to 1.
 
-        Returns:
-            list: A list of outcomes from the rolls.
+Returns:
+    list: A list of outcomes from the rolls.
         
-        Raises:
-            ValueError: If `num_rolls` is not a positive integer.
-        """
+Raises:
+    ValueError: If `num_rolls` is not a positive integer.
+"""
 ```
 Rolls the die n_rolls times and returns the outcomes.
 
 4.  ```show() -> pd.DataFrame```
 ```python
-    """Show the current faces and weights of the die.
+"""Show the current faces and weights of the die.
 
-        Returns:
-            pd.DataFrame: A copy of the internal dataframe.
-        """
+Returns:
+    pd.DataFrame: A copy of the internal dataframe.
+"""
 ```
 Returns a DataFrame of faces and their corresponding weights.
 
 ### Class: ```Game```
 ```python
 """
-    A Game consists of rolling one or more Die objects a specified number of times.
+A Game consists of rolling one or more Die objects a specified number of times.
     
-    The game is played by rolling all provided dice a specified number of times.
-    Dice in a game are considered similar if they have the same faces, although their weights may differ.
-    The Game class only stores the results of the most recent play.
+The game is played by rolling all provided dice a specified number of times.
+Dice in a game are considered similar if they have the same faces, although their weights may differ.
+The Game class only stores the results of the most recent play.
 
-    Attributes:
-        dice (list): A list of Die objects.
-        _results (pd.DataFrame): Results of the most recent play.
-    """
+Attributes:
+    dice (list): A list of Die objects.
+    _results (pd.DataFrame): Results of the most recent play.
+"""
 ```
 Represents a game with one or more dice.
 
@@ -176,28 +177,28 @@ Represents a game with one or more dice.
 1.  ```__init__(dice: list)```
 ```python
 """
-        Initialize the Game with a list of Die objects.
+Initialize the Game with a list of Die objects.
 
-        Args:
-            dice_list (list): List of Die objects.
+Args:
+    dice_list (list): List of Die objects.
         
-        Raises:
-            TypeError: If any item in the list is not an instance of the Die class.
-            ValueError: If not all dice have the same faces.
-        """
+Raises:
+    TypeError: If any item in the list is not an instance of the Die class.
+    ValueError: If not all dice have the same faces.
+"""
 ```
 Initializes the game with a list of Die objects.
 
 2.  ```play(n_rolls: int)```
 ```python
 """
-        Roll all dice for a specified number of times and store the result.
+Roll all dice for a specified number of times and store the result.
 
-        Args:
-            n_rolls (int): Number of times to roll the dice.
+Args:
+    n_rolls (int): Number of times to roll the dice.
             
-        Raises:
-            ValueError: If `num_rolls` is not a positive integer.
+Raises:
+    ValueError: If `num_rolls` is not a positive integer.
         """
 ```
 Rolls all dice n_rolls times. Results are stored internally.
@@ -205,19 +206,19 @@ Rolls all dice n_rolls times. Results are stored internally.
 3.  ```show(form: str = 'wide') -> pd.DataFrame```
 ```python
 """
-        Show the results of the most recent play.
+Show the results of the most recent play.
 
-        Args:
-            form (str): Format of the returned DataFrame. Either 'wide' or 'narrow'.
-                                  'wide' returns the DataFrame as-is (default).
-                                  'narrow' returns a long-format version with three columns:
-                                  Roll Number, Die Number, and Face.
+Args:
+    form (str): Format of the returned DataFrame. Either 'wide' or 'narrow'.
+                              'wide' returns the DataFrame as-is (default).
+                              'narrow' returns a long-format version with three columns:
+                               Roll Number, Die Number, and Face.
 
-        Returns:
-            pd.DataFrame: A copy of the play results in the specified format.
+Returns:
+    pd.DataFrame: A copy of the play results in the specified format.
 
-        Raises:
-            ValueError: If the `form` argument is not 'wide' or 'narrow'.
+Raises:
+    ValueError: If the `form` argument is not 'wide' or 'narrow'.
         """
 ```
 Displays the results of the game.
@@ -229,11 +230,15 @@ Displays the results of the game.
 ### Class: ```Analyzer```
 ```python
 """
-    An Analyzer takes the results of a Game and computes descriptive statistics.
+An Analyzer takes the results of a single Game and computes different descriptive statistical analysis.
 
-    Attributes:
-        game (Game): A Game object.
-        results
+Attributes:
+    game (Game): A Game object containing the results of the dice rolls.
+    results (pd.DataFrame): The results of the game's last play (each row is a roll).
+    face_counts_per_roll (pd.DataFrame): Counts of each face in each roll.
+    jackpots (pd.DataFrame): Rolls where all dice showed the same face.
+    permutations (pd.DataFrame): Unique combos and their counts.
+"""
 ```
 Analyzes the results of a played game.
 
@@ -241,6 +246,13 @@ Analyzes the results of a played game.
 1.  ```__init__(game: Game)```
 ```python
 """
+Initialize the Analyzer with a Game object.
+
+Parameters:
+    game (Game): An instance of the Game object
+
+Raises:
+    ValueError: If input is not an instance of Game
 """
 ```
 Initializes the analyzer with a Game object.
@@ -248,28 +260,55 @@ Initializes the analyzer with a Game object.
 2.  ```jackpot() -> int```
 ```python
 """
+Count how many times all dice in a roll showed the same face
+
+Returns:
+    int: # of jackpots
 """
 ```
 Counts how many rolls had all dice show the same face.
+
 *  Returns: Integer count of jackpots.
 
 3.  ```combo() -> pd.DataFrame```
 ```python
 """
+Counts the distinct combinations of faces rolled, along with their counts
+        
+Combos are unordered ([1,2,3] is the same as [3,2,1]) and can include repeated faces
+
+Returns:
+    pd.DataFrame: Dataframe of unique combos and their counts.
 """
 ```
 Returns a DataFrame of combinations of faces rolled, with counts.
+
 4.  ```face_counts_per_roll() -> pd.DataFrame```
 ```python
 """
+Counts how many times each face appeared in each roll
+
+Returns:
+    pd.DataFrame: A DataFrame with roll number as index, face values as columns, and the count of each face per roll as values
 """
 ```
 Returns a DataFrame of how many times each face appeared in each roll.
 
+5. ```permutations() -> pd.DataFrame```
+```python
+"""
+Counts the distinct permutations of faces rolled (order matters), along with count
+
+Returns:
+    pd.DataFrame: DataFrame indexed by permutation with 'count' column.
+"""
+```
+Returns a DataFrame that counts the distinct permutations of faces rolled (order matters), along with count
+
 ## Running Tests
 To run all tests, run the following command from the root directory of the project:
 ```python
-python -m unittest tests.test_montecarlo
+python -m unittest test_montecarlo.py
 ```
 
 ### Author
