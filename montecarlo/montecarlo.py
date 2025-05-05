@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 
 class Die:
-    """A class representing a single die with N sides and W weights.
+    """A class representing a single die with chosen N sides and W weights.
 
     Each face has a unique symbol, and a weight associated with it that determines the likelihood of that face being rolled. By default, all weights are 1.0, making the die fair, but can be changed after the object is created. The die can be rolled to select a face based on weights.
 
     Attributes:
-        faces (np.ndarray): A NumPy array of unique face symbols.
+        faces (np.ndarray): A NumPy array of unique face values (must be strings or numbers)
         weights (np.ndarray): A NumPy array of weights, defaulting to 1.0 for each face.
         _df (pd.DataFrame): A private DataFrame storing faces and weights with faces as the index.
     """
@@ -15,7 +15,7 @@ class Die:
         """Initializes the Die object with the provided faces.
 
         Args:
-            faces (np.ndarray): A NumPy array of unique face symbols (must be strings or numbers).
+            faces (np.ndarray): A NumPy array of unique face values (must be strings or numbers)
 
         Raises:
             TypeError: If `faces` is not a NumPy array.
@@ -58,7 +58,7 @@ class Die:
             num_rolls (int): Number of rolls to perform. Defaults to 1.
 
         Returns:
-            list: A list of outcomes from the rolls.
+            list: A list of face values rolled.
         
         Raises:
             ValueError: If `num_rolls` is not a positive integer.
@@ -80,7 +80,7 @@ class Die:
         """Show the current faces and weights of the die.
 
         Returns:
-            pd.DataFrame: A copy of the internal dataframe.
+            pd.DataFrame: A copy of the internal dataframe with the faces and weights.
         """
         return  self._df.copy()
     
@@ -142,16 +142,15 @@ class Game:
 
     def show(self, form: str = "wide"):
         """
-        Show the results of the most recent play.
+        Show the results of the most recent game.
 
         Args:
             form (str): Format of the returned DataFrame. Either 'wide' or 'narrow'.
                                   'wide' returns the DataFrame as-is (default).
-                                  'narrow' returns a long-format version with three columns:
-                                  roll number, die number, and face.
+                                  'narrow' returns a long-format version with three columns: roll number, die number, and face.
 
         Returns:
-            pd.DataFrame: A copy of the play results in the specified format.
+            pd.DataFrame: A copy DataFrame of the game results.
 
         Raises:
             ValueError: If the `form` argument is not 'wide' or 'narrow'.
@@ -171,11 +170,14 @@ class Game:
             
 class Analyzer:
     """
-    An Analyzer takes the results of a single Game and computes descriptive statistics
+    An Analyzer takes the results of a single Game and computes different descriptive statistical analysis.
 
     Attributes:
-        game (Game): A Game object containing the results of the dice rolls
-        results (pd.DataFrame): The results of the game's last play (each row is a roll)
+        game (Game): A Game object containing the results of the dice rolls.
+        results (pd.DataFrame): The results of the game's last play (each row is a roll).
+        face_counts_per_roll (pd.DataFrame): Counts of each face in each roll.
+        jackpots (pd.DataFrame): Rolls where all dice showed the same face.
+        permutations (pd.DataFrame): Unique combos and their counts.
     """
     def __init__(self, game):
         """
@@ -221,7 +223,7 @@ class Analyzer:
         Combos are unordered ([1,2,3] is the same as [3,2,1]) and can include repeated faces
 
         Returns:
-            pd.DataFrame: DataFrame indexed by combo with 'count' column.
+            pd.DataFrame: Dataframe of unique combos and their counts.
         """
         sorted_results = self.results.apply(lambda row: tuple(sorted(row)), axis=1)
         combos = sorted_results.value_counts().sort_index()
