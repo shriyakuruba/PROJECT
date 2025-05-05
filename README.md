@@ -97,7 +97,7 @@ Attributes:
 """
 ```
 **Methods:**
-1.  ```__init__(faces: list)```
+1.  ```__init__(faces: np.ndarray)```
 ```python
 """Initializes the Die object with the provided faces.
 
