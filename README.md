@@ -25,8 +25,8 @@ README.md                               # Project documentation
 LICENSE                                 # Licensing information
 setup.py                                # Setup script for installing the package
 DSDS51200_FinalProjectTemplate.ipynb    # Template to test package
-english_letters.txt                     # Text file to test package in Template notebook
-scrabble_words.txt                      # Text file to test package in Template notebook
+english_letters.txt                     # Letter text file to test package in Template notebook
+scrabble_words.txt                      # Word text file to test package in Template notebook
 ```
 ## Installation Instructions
 You can clone the repository and install the package locally:
